@@ -54,8 +54,8 @@ st.sidebar.header("⚙️ 參數設定")
 st.sidebar.markdown("請設定您想查詢的股票代號與日期區間：")
 
 stock_id = st.sidebar.text_input("股票代號 (如: 2330.TW)", "2330.TW")
-start_date = st.sidebar.date_input("開始日期", datetime(2024, 10, 18))
-end_date = st.sidebar.date_input("結束日期", datetime(2025, 4, 20))
+start_date = st.sidebar.date_input("開始日期", datetime(2025, 10, 10))
+end_date = st.sidebar.date_input("結束日期", datetime(2026, 5, 5))
 
 # 顯示字型狀態診斷
 if target_font_name and not target_font_name.startswith("Error"):
