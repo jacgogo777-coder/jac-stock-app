@@ -100,7 +100,7 @@ title_font = {'fontname': target_font_name} if target_font_name else {}
 
 fig = plt.figure(figsize=(14, 12), layout='constrained')
 
-# 主圖
+# 主圖 (佔 3 單位)
 ax1 = fig.add_subplot(6,1,(1,3))
 ax1.set_xticks(range(0,len(df.index),10))
 ax1.set_xticklabels(df.index[::10])
@@ -113,28 +113,35 @@ ax1.plot(df['lower_band'], color='purple', ls=':', label='布林下軌')
 ax1.set_title(f"【{stock_id}】技術分析綜合圖表", fontsize=16, **title_font)
 ax1.legend(loc='upper left')
 
-# KDJ
+# KDJ (佔 1 單位)
 ax3 = fig.add_subplot(6,1,4)
 ax3.plot(df['K'], label='K線')
 ax3.plot(df['D'], label='D線')
 ax3.plot(df['J'], label='J線', ls='--')
+# 補上隱藏 X 軸設定
+ax3.set_xticks(range(0,len(df.index),10))
+ax3.set_xticklabels([]) 
 ax3.set_title("KDJ 指標分析", **title_font)
 ax3.legend(loc='upper left')
 
-# OBV
+# OBV (佔 1 單位)
 ax2 = fig.add_subplot(6,1,5)
 ax2.plot(df['OBV'], color='purple', ls='--', label='OBV')
+# 補上隱藏 X 軸設定
+ax2.set_xticks(range(0,len(df.index),10))
+ax2.set_xticklabels([])
 ax2.set_title("OBV 能量潮趨勢", **title_font)
 ax2_1 = ax2.twinx()
 vol_colors = np.where(df['Close'] > df['Close'].shift(1), 'r', 'g')
 ax2_1.bar(df.index, df['Volume'], color=vol_colors, alpha=0.3)
 
-# MACD
+# MACD (佔 1 單位)
 ax4 = fig.add_subplot(6,1,6)
 m_colors = np.where(df['MACD Histogram'] >= 0, 'r', 'g')
 ax4.plot(df['DIF'], label='DIF', color='orange')
 ax4.plot(df['MACD'], label='MACD', color='blue')
 ax4.bar(df.index, df['MACD Histogram'], color=m_colors)
+# 設定最後一個圖表的 X 軸顯示日期
 ax4.set_xticks(range(0,len(df.index),10))
 ax4.set_xticklabels(df.index[::10], rotation=45)
 ax4.set_title("MACD 指標分析", **title_font)
